@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class User {
-    private String username;
+    private final String username;
     private String password;
 
     public User(String username) {
@@ -44,6 +44,4 @@ public class User {
         }
         return stringBuilder.toString();
     }
-}
-
 }
