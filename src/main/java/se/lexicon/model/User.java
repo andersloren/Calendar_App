@@ -6,6 +6,7 @@ import java.util.Random;
 public class User {
     private final String username;
     private String password;
+    private boolean expired;
 
     public User(String username) {
         this.username = username;
@@ -17,12 +18,22 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String password, boolean expired) {
+        this.username = username;
+        this.password = password;
+        this.expired = expired;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isExpired() {
+        return expired;
     }
 
     public String displayUserInfo() {

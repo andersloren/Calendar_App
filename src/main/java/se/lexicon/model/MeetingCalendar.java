@@ -11,13 +11,12 @@ public class MeetingCalendar {
     private String username;
 
     public MeetingCalendar(String title) {
-        this.title = title;
+        this.title = title; // TODO: 02/10/2023 is this constructor needed, check mehrdad code 
     }
 
     public MeetingCalendar(String title, String username) {
         this(title);
         this.username = username;
-
     }
 
     public MeetingCalendar(int id, String title, String username) {
