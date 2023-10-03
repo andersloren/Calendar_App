@@ -10,11 +10,11 @@ public class MeetingCalendarDBConnection {
 
 
     private static final String DB_NAME = "meeting_calendar_db";
-    private static final String JDBC_URL = "jdbc:mysql//localhost:3306" + DB_NAME;
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "1234";
 
-    public static Connection MeetingCalendarDBConnection() {
+    public static Connection getConnection() {
         try {
             return DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
         } catch (SQLException e) {

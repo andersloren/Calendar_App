@@ -11,7 +11,7 @@ public class MeetingCalendar {
     private String username;
 
     public MeetingCalendar(String title) {
-        this.title = title; // TODO: 02/10/2023 is this constructor needed, check mehrdad code 
+        this.title = title;
     }
 
     public MeetingCalendar(String title, String username) {

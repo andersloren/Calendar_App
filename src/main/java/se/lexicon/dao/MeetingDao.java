@@ -11,9 +11,7 @@ public interface MeetingDao {
 
     Optional<Meeting> findById(int meetingId);
 
-    Collection<Meeting> findAllMeetingsByCalendarId(int calendarId); // SELECT * FROM meeting WHERE calendar_id = ?
+    Collection<Meeting> findAllMeetingsByCalendarId(int calendarId);
 
     boolean deleteMeeting(int meetingId);
-
-    // TODO: 02/10/2023 Add methods for updating meetings as needed 
 }

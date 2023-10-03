@@ -36,8 +36,8 @@ public class User {
         return expired;
     }
 
-    public String displayUserInfo() {
-        return "User " + username + " has been created successfully" + "PWD: " + password;
+    public String userInfo() {
+        return "Username " + username + ", Password: " + password;
     }
 
     public void newPassword() {
