@@ -4,7 +4,7 @@ import se.lexicon.util.ConsoleColors;
 
 public class CalendarExceptionHandler {
 
-    public static void handelException(Exception exception) {
+    public static void handleException(Exception exception) {
 
         if (exception instanceof AuthenticationFailedException) {
             System.out.println(ConsoleColors.RED + exception.getMessage() + ConsoleColors.RESET);

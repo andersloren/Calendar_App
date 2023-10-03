@@ -12,6 +12,8 @@ public interface UserDao {
 
     Optional<User> findByUserName(String username);
 
+    boolean removeUser(String username);
+
     boolean authenticate(User user) throws AuthenticationFailedException, UserExpiredException;
 }
 
