@@ -13,7 +13,7 @@ public interface MeetingCalendarDao {
 
     Collection<MeetingCalendar> findByUserName(String username);
 
-    Optional<MeetingCalendar> findByTitle(String title);
+    Collection<MeetingCalendar> findByTitle(String title);
 
     boolean deleteCalendar(int id);
 

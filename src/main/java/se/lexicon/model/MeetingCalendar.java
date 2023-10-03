@@ -56,9 +56,9 @@ public class MeetingCalendar {
     public String calendarInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Calendar Info:").append("\n");
-        stringBuilder.append("Id:").append("\n");
-        stringBuilder.append("Title:").append("\n");
-        stringBuilder.append("Username:").append("\n");
+        stringBuilder.append("Id: " + getId()).append("\n");
+        stringBuilder.append("Title: " + getTitle()).append("\n");
+        stringBuilder.append("Username: " + getUsername()).append("\n");
         return stringBuilder.toString();
     }
 
