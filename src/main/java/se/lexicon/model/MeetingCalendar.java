@@ -17,7 +17,6 @@ public class MeetingCalendar {
     public MeetingCalendar(String title, String username) {
         this(title);
         this.username = username;
-
     }
 
     public MeetingCalendar(int id, String title, String username) {

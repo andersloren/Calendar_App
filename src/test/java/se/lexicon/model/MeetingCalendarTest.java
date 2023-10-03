@@ -16,8 +16,7 @@ public class MeetingCalendarTest  {
                 "title",
                 LocalDateTime.of(2023, 1, 1, 0, 0),
                 LocalDateTime.of(2023, 1, 1, 0, 1),
-                "description",
-                meetingCalendar);
+                "description");
         meetingCalendar.addMeeting(meeting);
         List<Meeting> meetings = meetingCalendar.getMeetings();
         meetings.forEach(System.out::println);
