@@ -3,6 +3,7 @@ package se.lexicon.model;
 import org.junit.jupiter.api.*;
 import se.lexicon.dao.impl.UserDaoImpl;
 import se.lexicon.exception.AuthenticationFailedException;
+import se.lexicon.exception.DuplicateEntryException;
 import se.lexicon.exception.UserExpiredException;
 
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Create user, should equal returned user")
-    void testCreateUser() {
+    void testCreateUser() throws DuplicateEntryException {
         String username = "mikael";
         User createdUser1 = testObject.createUser(username);
 
@@ -44,7 +45,7 @@ public class UserTest {
 
     @Test
     @DisplayName("Returns true if passed in user exist in TABLE users")
-    void testAuthentication() throws AuthenticationFailedException, UserExpiredException {
+    void testAuthentication() throws AuthenticationFailedException, UserExpiredException, DuplicateEntryException {
         String username = "test";
         User user = testObject.createUser(username);
         boolean b = testObject.authenticate(user);

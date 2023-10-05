@@ -1,8 +1,11 @@
 package se.lexicon.dao.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import se.lexicon.dao.UserDao;
 import se.lexicon.dao.impl.db.MeetingCalendarDBConnection;
 import se.lexicon.exception.AuthenticationFailedException;
+import se.lexicon.exception.DuplicateEntryException;
 import se.lexicon.exception.MySQLException;
 import se.lexicon.exception.UserExpiredException;
 import se.lexicon.model.User;
@@ -15,6 +18,8 @@ import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
+    private static final Logger log = LogManager.getLogger(UserDaoImpl.class);
+
 /*    private Connection connection;
 
     public MeetingDaoImpl(Connection connection) {
@@ -22,26 +27,40 @@ public class UserDaoImpl implements UserDao {
     }*/ // TODO: 03/10/2023 Re-introduce this?
 
     @Override
-    public User createUser(String username) {
+    public User createUser(String username) throws DuplicateEntryException {
+
+        Optional<User> potentialDuplicate = findByUserName(username);
+        if (potentialDuplicate.isPresent()) {
+            throw new DuplicateEntryException("User already exist.");
+        }
+
         String query = "INSERT INTO users(username, _password) VALUES(?, ?)";
+        log.info("Creating user: {}", username);
+
+
         try (
                 Connection connection = MeetingCalendarDBConnection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
+
             User user = new User(username);
+            user.newPassword();
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, user.getHashedPassword());
 
             int affectedRows = preparedStatement.executeUpdate();
-
             if (affectedRows == 0) {
-                throw new MySQLException("Creating user failed, no rows affected");
+                String errorMessage = "Creating user failed, no rows affected.";
+                log.error(errorMessage + username);
+                throw new MySQLException(errorMessage);
             }
 
             return user;
 
-        } catch (SQLException e) { // TODO: 03/10/2023 Change this exception?
-            throw new MySQLException("Error occurred while creating user: " + username, e);
+        } catch (SQLException e) {
+            String errorMessage = "Error occurred while creating user: ";
+            log.error(errorMessage + username, e);
+            throw new MySQLException(errorMessage + username, e);
         }
     }
 
@@ -96,34 +115,41 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
     @Override
     public boolean authenticate(User user) throws AuthenticationFailedException, UserExpiredException {
-        String query = "SELECT * FROM users WHERE username = ? AND _password = ?";
+        String query = "SELECT * FROM users WHERE username = ?";
+        log.info("Authenticate user: {}", user.getUsername());
         try (
                 Connection connection = MeetingCalendarDBConnection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(query)
         ) {
 
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 boolean isExpired = resultSet.getBoolean("expired");
                 if (isExpired) {
-                    throw new UserExpiredException("User is Expired. username: " + user);
+                    log.warn("User is expired. Username: {}", user.getUsername());
+                    throw new UserExpiredException("User is Expired. username: " + user.getUsername());
                 }
+
+                String hashedPassword = resultSet.getString("_password");
+                user.checkHash(hashedPassword);
+
             } else {
-                throw new AuthenticationFailedException("Authentication failed. Invalid credentials.");
+                String errorMessage = "Authentication failed. Invalid credentials.";
+                log.warn(errorMessage);
+                throw new AuthenticationFailedException(errorMessage);
             }
 
             return true;
 
         } catch (
                 SQLException e) {
-            throw new MySQLException("Error occured while authenticating user by username: " + user.getUsername(), e);
+            log.error("Error occurred while authenticating user by username: {}", user.getUsername());
+            throw new MySQLException("Error occurred while authenticating user by username: " + user.getUsername(), e);
         }
     }
 }

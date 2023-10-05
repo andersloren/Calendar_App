@@ -1,19 +1,20 @@
 package se.lexicon.dao.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import se.lexicon.dao.MeetingCalendarDao;
 import se.lexicon.dao.impl.db.MeetingCalendarDBConnection;
 import se.lexicon.exception.MySQLException;
 import se.lexicon.model.MeetingCalendar;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
 public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
+
+    private static final Logger log = LogManager.getLogger(MeetingCalendarDao.class);
 
 /*    private Connection connection;
 
@@ -23,10 +24,13 @@ public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
 
     @Override
     public MeetingCalendar createMeetingCalendar(String title, String username) {
+
         String query = "INSERT INTO meeting_calendars(title, username) VALUES(?, ?)";
+        log.info("Creating Calendar \"{}\" for {}", title, username);
+
         try (
                 Connection connection = MeetingCalendarDBConnection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)
+                PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)
         ) {
             MeetingCalendar meetingCalendar = new MeetingCalendar(title, username);
             preparedStatement.setString(1, title);
@@ -35,15 +39,29 @@ public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new MySQLException("Creating MeetingCalendar failed, no rows affected");
+                String errorMessage = "Creating MeetingCalendar failed, no rows affected";
+                log.error(errorMessage);
+                throw new MySQLException(errorMessage);
             }
 
-            return meetingCalendar;
-
-        } catch (SQLException e) { // TODO: 03/10/2023 Change this exception?
-            throw new MySQLException("Error occurred while creating meeting calendar: " + title);
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int meetingCalendarId = generatedKeys.getInt(1);
+                    meetingCalendar.setId(meetingCalendarId);
+                } else {
+                    String errorMessage = "Creating calendar failed, no ID obtained";
+                    log.error(errorMessage);
+                    throw new SQLException(errorMessage);
+                }
+                return meetingCalendar;
+            }
+        } catch (SQLException e) {
+            String errorMessage = "Error occurred while creating meeting calendar: " + title;
+            log.error(e.getStackTrace());
+            throw new MySQLException(errorMessage);
         }
     }
+
 
     @Override
     public Optional<MeetingCalendar> findById(int id) {
@@ -55,7 +73,7 @@ public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery(); // inside try-with-resources
 
             if (resultSet.next()) {
                 int foundId = resultSet.getInt("id");
@@ -92,8 +110,7 @@ public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
                 String foundTitle = resultSet.getString("title");
                 String foundUsername = resultSet.getString("username");
 
-                MeetingCalendar meetingCalendar = new MeetingCalendar(foundId, foundTitle, foundUsername);
-                calendarsFoundByUserName.add(meetingCalendar);
+                calendarsFoundByUserName.add(new MeetingCalendar(foundId, foundTitle, foundUsername));
             }
 
             return calendarsFoundByUserName;
@@ -158,3 +175,4 @@ public class MeetingCalendarDaoImpl implements MeetingCalendarDao {
         }
     }
 }
+

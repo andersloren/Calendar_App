@@ -29,6 +29,10 @@ public class MeetingCalendar {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -56,7 +60,7 @@ public class MeetingCalendar {
     public String calendarInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Calendar Info:").append("\n");
-        stringBuilder.append("Id: " + getId()).append("\n");
+//        stringBuilder.append("Id: " + getId()).append("\n"); //no reason to see this
         stringBuilder.append("Title: " + getTitle()).append("\n");
         stringBuilder.append("Username: " + getUsername()).append("\n");
         return stringBuilder.toString();

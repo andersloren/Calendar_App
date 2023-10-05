@@ -8,6 +8,8 @@ public class CalendarExceptionHandler {
 
         if (exception instanceof AuthenticationFailedException) {
             System.out.println(ConsoleColors.RED + exception.getMessage() + ConsoleColors.RESET);
+        } else if (exception instanceof DuplicateEntryException) {
+            System.out.println(ConsoleColors.RED + exception.getMessage() + ConsoleColors.RESET);
         } else if (exception instanceof UserExpiredException) {
             System.out.println(ConsoleColors.YELLOW + exception.getMessage() + ConsoleColors.RESET);
         } else if (exception instanceof DBConnectionException) {
