@@ -1,0 +1,82 @@
+[09:58:05.957] - Authenticate user: mikael
+[10:50:20.123] - Authenticate user: mikael
+[10:50:28.321] - Authenticate user: mikael
+[10:51:16.084] - Authenticate user: admin
+[10:52:23.362] - Authenticate user: anders
+[11:00:15.671] - Authenticate user: mikael
+[11:00:34.885] - Creating user: admin2
+[11:00:45.666] - Authenticate user: admin2
+[11:01:43.901] - Creating user: anders
+[11:01:57.984] - Authenticate user: admin
+[11:01:58.000] - Authentication failed. Invalid credentials.
+[11:02:00.139] - Creating user: admin
+[11:02:14.274] - Creating user: mikael
+[11:02:50.817] - Authenticate user: anders
+[11:07:54.006] - Authenticate user: anders
+[11:13:11.695] - Authenticate user: anders
+[11:15:25.651] - Creating user: anders
+[11:17:06.313] - Creating user: mikael
+[11:17:14.222] - Creating user: admin
+[11:34:38.585] - Authenticate user: anders
+[11:44:40.029] - Authenticate user: anders
+[12:40:39.449] - Authenticate user: anders.
+[12:40:39.502] - Authentication failed. Invalid credentials.
+[12:40:46.340] - Authenticate user: anders
+[12:43:17.774] - Authenticate user: anders
+[12:47:30.260] - Authenticate user: 02L3LeIsmQ
+[12:47:30.314] - Authentication failed. Invalid credentials.
+[12:47:41.052] - Authenticate user: anders
+[12:48:18.502] - Authenticate user: anders
+[12:51:36.440] - Authenticate user: anders
+[12:58:16.676] - Authenticate user: admin2
+[12:58:16.699] - Authentication failed. Invalid credentials.
+[12:58:25.295] - Creating user: admin2
+[12:59:08.544] - Authenticate user: admin2
+[13:02:10.236] - Creating user: admin2
+[13:03:11.651] - Authenticate user: admin2
+[13:04:21.269] - Authenticate user: admin2
+[13:04:21.321] - Authentication failed. Invalid credentials.
+[13:04:50.048] - Authenticate user: admin
+[13:05:02.458] - Authenticate user: admin2
+[13:05:02.475] - Authentication failed. Invalid credentials.
+[13:05:12.351] - Creating user: admin2
+[13:05:23.125] - Authenticate user: admin2
+[13:08:38.831] - Authenticate user: admin2
+[13:55:02.376] - Creating user: JohnBlund
+[13:55:18.727] - Authenticate user: JohnBlund
+[13:56:22.871] - Creating Calendar "Sovkalender" for JohnBlund
+[14:03:17.994] - Authenticate user: JohnBlund
+[14:03:57.702] - Authenticate user: JohnBlund
+[14:13:52.337] - Authenticate user: JohnBlund
+[14:14:05.348] - Authenticate user: JohnBlund
+[14:33:11.581] - Authenticate user: JohnBlund
+[14:49:18.917] - Authenticate user: JohnBlund
+[14:49:24.363] - Creating Calendar "Sovkalender" for JohnBlund
+[14:50:04.730] - Authenticate user: JohnBlund
+[14:50:08.690] - Creating Calendar "Kalender" for JohnBlund
+[14:50:54.614] - Authenticate user: JohnBlund
+[14:51:04.358] - Creating Calendar "Test" for JohnBlund
+[15:08:05.485] - Authenticate user: JohnBlund
+[15:08:05.542] - Authentication failed. Invalid credentials.
+[15:08:19.489] - Authenticate user: a
+[15:08:19.508] - Authentication failed. Invalid credentials.
+[15:08:22.761] - Creating user: JohnBlund
+[15:08:32.585] - Authenticate user: JohnBlund
+[15:12:13.734] - Authenticate user: JohnBlund
+[15:13:01.823] - Creating meeting: Title
+[15:13:01.855] - Error occurred while creating meeting: Title
+[15:15:51.259] - Authenticate user: JohnBlund
+[15:15:57.179] - Creating Calendar "Sovkalender" for JohnBlund
+[15:25:22.753] - Authenticate user: JohnBlund
+[15:26:04.209] - Authenticate user: JohnBlund
+[15:26:36.967] - Creating meeting: MeetingTitle
+[15:30:42.575] - Creating user: abc
+[15:30:58.788] - Authenticate user: abc
+[15:31:11.794] - Creating Calendar "First Calendar" for abc
+[15:32:01.314] - Creating meeting: First Meeting
+[15:33:15.955] - Creating meeting: Second Meeting
+[15:36:23.901] - [Ljava.lang.StackTraceElement;@38467116
+[15:36:58.353] - [Ljava.lang.StackTraceElement;@6f204a1a
+[15:39:13.022] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
