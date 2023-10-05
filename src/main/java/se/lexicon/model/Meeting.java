@@ -41,6 +41,10 @@ public class Meeting {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -63,18 +67,17 @@ public class Meeting {
 
     public String meetingInfo() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Meeting Info:").append("\n");
-        stringBuilder.append("Id:").append(id).append("\n");
-        stringBuilder.append("Title:").append("\n");
-        stringBuilder.append("Starting time:").append("\n");
-        stringBuilder.append("Ending time:").append("\n");
-        stringBuilder.append("Description:").append("\n");
-        stringBuilder.append("Calendar:").append("\n");
+        stringBuilder.append("Meeting Info: ").append("\n");
+//        stringBuilder.append("Id: ").append(id).append("\n"); //no reason to show this to user
+        stringBuilder.append("Title: ").append(title).append("\n");
+        stringBuilder.append("Starting time: ").append(startTime).append("\n");
+        stringBuilder.append("Ending time: ").append(endTime).append("\n");
+        stringBuilder.append("Description: ").append(description).append("\n");
+//        stringBuilder.append("Calendar: ").append(calendar).append("\n");
         return stringBuilder.toString();
     }
-    
+
     private void timeValidation() {
-        // TODO: 02/10/2023 implement later
     }
 
 

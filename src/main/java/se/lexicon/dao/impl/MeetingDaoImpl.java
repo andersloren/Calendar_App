@@ -1,13 +1,13 @@
 package se.lexicon.dao.impl;
 
-// TODO: 03/10/2023 finish this! 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import se.lexicon.dao.MeetingCalendarDao;
 import se.lexicon.dao.MeetingDao;
 import se.lexicon.dao.impl.db.MeetingCalendarDBConnection;
 import se.lexicon.exception.MySQLException;
 import se.lexicon.model.Meeting;
-import se.lexicon.model.MeetingCalendar;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class MeetingDaoImpl implements MeetingDao {
+
+    private static final Logger log = LogManager.getLogger(MeetingDao.class);
 
 /*    private Connection connection;
 
@@ -26,27 +28,51 @@ public class MeetingDaoImpl implements MeetingDao {
     @Override
     public Meeting createMeeting(Meeting meeting) {
         String query = "INSERT INTO meetings(title, start_time, end_time, _description, calendar_id) VALUES(?, ?, ?, ?, ?)";
+        log.info("Creating meeting: {}", meeting.getTitle());
         try (
                 Connection connection = MeetingCalendarDBConnection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(query)
+                PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, meeting.getTitle());
             preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(meeting.getStartTime()));
             preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(meeting.getEndTime()));
             preparedStatement.setString(4, meeting.getDescription());
-            preparedStatement.setObject(5, meeting.getCalendar().getId());
+            preparedStatement.setInt(5, meeting.getCalendar().getId());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected == 0) {
-                throw new MySQLException("Creating meeting failed, now rows affected.");
+                String errorMessage = "Creating meeting failed, now rows affected.";
+                log.error(errorMessage + meeting.getTitle());
+                throw new MySQLException(errorMessage);
             }
 
-            return meeting;
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int meetingId = generatedKeys.getInt(1);
+                    meeting.setId(meetingId);
+                    new Meeting(
+                            meetingId,
+                            meeting.getTitle(),
+                            meeting.getStartTime(),
+                            meeting.getEndTime(),
+                            meeting.getDescription(),
+                            meeting.getCalendar());
+
+                    return meeting;
+
+                } else {
+                    String errorMessage = "Creating meeting failed, no ID obtained.";
+                    log.error(errorMessage + meeting.getTitle());
+                    throw new MySQLException(errorMessage);
+                }
+            }
 
         } catch (SQLException e) {
+            String errorMessage = "Error occurred while creating meeting: ";
             e.printStackTrace();
-            throw new MySQLException("Error occurred while creating meeting: " + meeting.getTitle(), e);
+            log.error(errorMessage + meeting.getTitle());
+            throw new MySQLException(errorMessage + meeting.getTitle(), e);
         }
     }
 
@@ -112,6 +138,7 @@ public class MeetingDaoImpl implements MeetingDao {
             throw new MySQLException("Error occurred while trying find all meetings by calendar id: " + calendarId, e);
         }
     }
+
 
     @Override
     public boolean deleteMeeting(int meetingId) {
