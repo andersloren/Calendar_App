@@ -70,13 +70,20 @@ public class CalendarConsoleUI implements CalendarView {
             }
 
             int choice;
-            while (!scanner.hasNextInt() || (choice = scanner.nextInt()) < 0 || choice > foundCalendars.size() - 1) {
+            // limiting the set of valid symbols using pattern
+            while (!scanner.hasNext("^[0-9]+$") || (choice = scanner.nextInt()) < 0 || choice > foundCalendars.size() - 1) {
                 System.out.println("Enter a number between 0 and " + (foundCalendars.size() - 1));
                 scanner.nextLine(); // Consume and discard the invalid input
             }
-
             meetingCalendar = foundCalendars.get(choice);
+
+            // consuming leftover input
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
         }
+
+//        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter a Meeting title: ");
         String title = scanner.nextLine();

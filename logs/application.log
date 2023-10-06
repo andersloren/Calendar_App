@@ -80,3 +80,55 @@
 [15:39:13.022] - Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:06:32.213] - Creating Calendar "title2" for anders
+[17:06:32.341] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:06:32.368] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:06:32.447] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:06:32.455] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:06:32.462] - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17:18:29.260] - Creating Calendar "title2" for anders
+[17:18:29.915] - [Ljava.lang.StackTraceElement;@70e0accd
+[17:18:51.376] - Creating Calendar "title2" for anders
+[17:18:51.854] - [Ljava.lang.StackTraceElement;@70e0accd
+[17:18:57.504] - Creating meeting: title2
+[17:19:04.655] - Creating user: test
+[17:19:04.766] - Authenticate user: test
+[17:19:04.946] - Creating user: mikael
+[17:19:12.811] - Creating user: test
+[17:19:12.943] - Authenticate user: test
+[17:19:17.347] - Creating user: test
+[17:19:17.454] - Authenticate user: test
+[17:23:02.694] - Creating user: mikael
+[17:23:17.905] - Authenticate user: mikael
+[17:24:09.718] - Creating Calendar "Work" for mikael
+[17:24:13.829] - Creating Calendar "Private" for mikael
+[17:29:26.400] - Creating meeting: 
+[17:31:03.971] - Authenticate user: mikael
+[17:34:35.096] - Authenticate user: mikael
+[17:35:27.583] - Authenticate user: mikael
+[17:36:29.279] - Authenticate user: mikael
+[17:37:17.463] - Authenticate user: mikael
+[17:38:39.232] - Authenticate user: mikael
+[17:42:03.527] - Authenticate user: mikael
+[17:43:26.966] - Authenticate user: mikael
+[17:43:50.051] - Authenticate user: mikael
+[17:44:07.975] - Authenticate user: mikael
+[17:45:32.709] - Creating meeting: Föräldramöte
+[17:58:48.675] - Authenticate user: mikael
+[18:03:06.539] - Authenticate user: mikael
+[18:03:25.864] - Authenticate user: mikael
+[18:04:52.935] - Authenticate user: mikael
+[18:05:38.883] - Authenticate user: FQduNZsbLe
+[18:05:38.932] - Authentication failed. Invalid credentials.
+[18:05:41.696] - Authenticate user: mikael
+[18:06:06.195] - Creating meeting: Testmöte
